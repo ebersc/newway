@@ -57,6 +57,9 @@ $route['filmes-series']['put'] = 'cadastros/atualizar';
 $route['filmes-series']['patch'] = 'cadastros/atualizar';
 $route['filmes-series']['delete'] = 'cadastros/excluir';
 
+$route['login'] = 'login/entrar';
+$route['logoff'] = 'login/sair';
+
 $route['default_controller'] = 'cadastros';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
