@@ -75,4 +75,12 @@ class CadastrosFilmesSeries_model extends CI_Model{
             throw $e;
         }
 	}
+
+    private function atualizaExpiracaoToken(){
+        try{
+            //Pegar token ativo e adicionar tempo para expiracao;
+        }catch(Exception $e){
+            throw $e;
+        }
+    }
 }
