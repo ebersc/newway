@@ -40,4 +40,19 @@ class Login_model extends CI_Model{
             throw $e;
         }
     }
+
+    private function atualizaExpiracaoToken(){
+        try{
+            $id_token = $this->db->select('id')
+                        ->from($this->table)
+                        ->where(['ativo' => 1, 'id_usuario' => $this->session->user_id])
+                        ->get()
+                        ->row();
+            $data_expiracao = date('Y-m-d H:i:s', strtotime('+15 minutes', date('Y-m-d H:i:s')));
+
+            $this->db->update($this->table, ['data_expiracao' => $data_expiracao], ['id' => $id_token]);
+        }catch(Exception $e){
+            throw $e;
+        }
+    }
 }
