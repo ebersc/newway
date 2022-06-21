@@ -5,6 +5,7 @@ class Login extends CI_Controller{
     public function __construct(){
        parent::__construct();
        $this->load->model('Login_model');
+       $this->load->model('Token_model');
     }
 
     public function entrar(){
@@ -25,7 +26,13 @@ class Login extends CI_Controller{
 
     public function sair(){
         try{
-
+            $id = $this->input->post('id_usuario');
+            if($this->session->user_id == $id){
+                unset($this->session->user_email);
+                unset($this->session->user_id);
+                $this->Token_model->inativa_tokens('id_usuario = ' . $id);
+                echo json_encode(['status' => 200, 'msg' => "Sessão encerrada com sucesso"]);
+            }
         }catch(Exception $e){
             throw $e;
         }

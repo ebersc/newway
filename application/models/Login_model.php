@@ -7,6 +7,7 @@ class Login_model extends CI_Model{
         $this->table = 'login';
 
         $this->load->model('Token_model');
+        $this->load->helper('date');
     }
 
     public function login($user, $passwd){
@@ -16,8 +17,7 @@ class Login_model extends CI_Model{
                     ->get();
 
         if($resul->num_rows() > 0){
-            // $arrResp = $resul->result_array()[0];
-            $this->session->user_email = $resul->result_array()[0]['emails'];
+            $this->session->user_email = $resul->result_array()[0]['email'];
             $this->session->user_id = $resul->result_array()[0]['id'];
             $arrResp['login'] = true;
 
@@ -38,7 +38,7 @@ class Login_model extends CI_Model{
     private function busca_token_ativo(){
         try{
             $id_user = $this->session->user_id;
-            $resul = $this->Token_model->busca_token_ativo(['id' => $id_user]);
+            $resul = $this->Token_model->busca_token_ativo(['id_usuario' => $id_user, 'ativo' => 1]);
 
             return $resul;
         }catch(Exception $e){
@@ -57,7 +57,7 @@ class Login_model extends CI_Model{
 
             $token = md5($key . "-" . $user);
 
-            $data_expiracao = date('Y-m-d H:i:s', strtotime('+30 minutes', date('Y-m-d H:i:s')));
+            $data_expiracao = date('Y-m-d H:i:s', strtotime('+30 minutes', now('America/Sao_Paulo')));
 
             $this->Token_model->insere_token([
                 'id_usuario' => $this->session->user_id,

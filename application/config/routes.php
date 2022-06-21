@@ -57,6 +57,9 @@ $route['filmes-series']['put'] = 'cadastros/atualizar';
 $route['filmes-series']['patch'] = 'cadastros/atualizar';
 $route['filmes-series']['delete'] = 'cadastros/excluir';
 
+$route['votar'] = 'votar/cadastrar_voto';
+$route['ver_votos'] = 'votar/contabilizar_votos';
+
 $route['login'] = 'login/entrar';
 $route['logoff'] = 'login/sair';
 

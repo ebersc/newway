@@ -35,6 +35,23 @@ class CadastrosFilmesSeries_model extends CI_Model{
         }
     }
 
+    public function contabilizar($orderby = 'nome', $direction = 'ASC'){
+        try{
+            $resp = $this->db->select('nome, votos')
+                            ->from($this->table)
+                            ->order_by($orderby, $direction)
+                            ->get();
+                            
+            if($resp->num_rows() > 0){
+                return $resp->result_array();
+            }else{
+                return [];
+            }
+        }catch(Exception $e){
+            throw $e;
+        }
+    }
+
     public function atualizar($dados, $where){
         try{
 
